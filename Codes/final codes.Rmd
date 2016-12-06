@@ -341,20 +341,19 @@ ggplot(servicerequest,aes(x=RequestType,y=process_time))+
   theme_bw()
 ```
 
-22. Distribution of Average Process Time for Each AssignTo(Top 15)
+22. Distribution of Average Process Time for Each Department
 ```{r}
 service_time2=servicerequest %>%
-  group_by(AssignTo) %>%
+  group_by(Owner) %>%
   summarise(avgtime=mean(process_time)) %>%
-  arrange(-avgtime) %>%
-  slice(1:15)
+  arrange(-avgtime)
 
-ggplot(service_time2,aes(x=reorder(AssignTo,avgtime),y=avgtime))+
+ggplot(service_time2,aes(x=reorder(Owner,avgtime),y=avgtime))+
   geom_bar(stat="identity",fill="lightblue",color="lightblue")+
   coord_flip()+
-  xlab("AssignTo")+
+  xlab("Department")+
   ylab("Average Process Time(Hour)")+
-  ggtitle("Distribution of Average Process Time for Each AssignTo(Top 15)")+
+  ggtitle("Distribution of Average Process Time for Each Department")+
   theme_bw()
 ```
 
